@@ -4,7 +4,7 @@ namespace ngk3_weather_api.Models
 {
     public class WeatherStation
     {
-        public int Id { get; set; }
+        public int Id { get; set; } = -1;
         public string Username { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }

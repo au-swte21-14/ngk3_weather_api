@@ -1,0 +1,8 @@
+namespace ngk3_weather_api.Types
+{
+    public class Login
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+    }
+}

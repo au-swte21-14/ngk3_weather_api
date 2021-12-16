@@ -5,8 +5,8 @@ namespace ngk3_weather_api.Models
 {
     public class WeatherObservation
     {
-        public int Id { get; set; }
-        public int WeatherStationId { get; set; }
+        public int Id { get; set; } = -1;
+        public int WeatherStationId { get; set; } = -1;
         public virtual WeatherStation WeatherStation { get; set; }
         public DateTime Date { get; set; }
         [Column(TypeName = "decimal(3,1)")] public decimal Temperature { get; set; }
