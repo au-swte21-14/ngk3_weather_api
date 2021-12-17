@@ -1,0 +1,229 @@
+{
+	"info": {
+		"_postman_id": "bd39f1ad-c9fd-452b-9487-158ce83e9d8b",
+		"name": "Weather API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Weather station login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"lystrup1\",\n  \"password\": \"lystrup1Password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/WeatherStation/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"WeatherStation",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add observation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"temperature\": 10,\n  \"humidity\": 10,\n  \"pressure\": 998\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/WeatherStation/Observation",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"WeatherStation",
+						"Observation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Stations",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/Weather/stations",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"Weather",
+						"stations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather Lystrup",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/Weather/station/lystrup1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"Weather",
+						"station",
+						"lystrup1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather Les Arcs",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/Weather/station/lesarcs1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"Weather",
+						"station",
+						"lesarcs1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather Lystrup 2021-12-17",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/Weather/station/lystrup1/2021-12-17",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"Weather",
+						"station",
+						"lystrup1",
+						"2021-12-17"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather Lystrup 2021-12-17 - 2021-12-24",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/api/Weather/station/lystrup1/2021-12-17/2021-12-24",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"Weather",
+						"station",
+						"lystrup1",
+						"2021-12-17",
+						"2021-12-24"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoibHlzdHJ1cDEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJXZWF0aGVyU3RhdGlvbiIsIm5iZiI6IjE2Mzk3MzY1OTMifQ.MVTaoAE1VvbVWXlWS7lTGwHjWR0GGWpRDkwJqf15iVE",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
