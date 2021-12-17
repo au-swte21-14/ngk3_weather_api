@@ -1,15 +1,16 @@
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ngk3_weather_api.Models
 {
     public class WeatherStation
     {
-        public int Id { get; set; } = -1;
+        [JsonIgnore] public int Id { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
+        [JsonIgnore] public string Password { get; set; }
         public string Name { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        public virtual ICollection<WeatherObservation> WeatherObservations { get; set; }
+        [JsonIgnore] public virtual ICollection<WeatherObservation> WeatherObservations { get; set; }
     }
 }

@@ -13,12 +13,12 @@ using ngk3_weather_api.Types;
 namespace ngk3_weather_api.Controllers
 {
     /// <summary>
-    /// API to retrieve data from weather stations
+    /// API to receive data from weather stations
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class WeatherStationController : ControllerBase
+    public class WeatherStationController : Controller
     {
         private readonly ApplicationDbContext _db;
         private readonly AppSettings _appSettings;
@@ -47,6 +47,28 @@ namespace ngk3_weather_api.Controllers
             }
 
             return BadRequest();
+        }
+
+        /// <summary>
+        /// Add weather measurement
+        /// </summary>
+        /// <param name="observation"></param>
+        /// <returns></returns>
+        [HttpPost("observation")]
+        [Authorize(Roles = "WeatherStation")]
+        public ActionResult PostObservation([FromBody] WeatherObservation observation)
+        {
+            var username = User?.Identity?.Name;
+            if (observation == null || username == null) return BadRequest();
+            var weatherStation = _db.WeatherStations.FirstOrDefault(e => e.Username == username);
+            if (weatherStation == null) return BadRequest();
+            observation.WeatherStationId = weatherStation.Id;
+            observation.Date = DateTime.Now;
+            _db.WeatherObservations.Add(observation);
+            Console.WriteLine(
+                $"{observation.Date} {username}: Temperature={observation.Temperature} Humidity={observation.Humidity} Pressure={observation.Pressure}");
+            _db.SaveChanges();
+            return Ok();
         }
 
         private string GenerateToken(string username)

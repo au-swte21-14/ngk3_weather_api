@@ -53,7 +53,8 @@ namespace ngk3_weather_api
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                         ValidateIssuer = false,
-                        ValidateAudience = false
+                        ValidateAudience = false,
+                        RequireExpirationTime = false
                     };
                 });
 
@@ -61,6 +62,7 @@ namespace ngk3_weather_api
             // Doc: https://docs.microsoft.com/da-dk/aspnet/core/tutorials/web-api-help-pages-using-swagger?view=aspnetcore-5.0
             services.AddSwaggerGen(c =>
             {
+                c.EnableAnnotations();
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Weather API",
@@ -126,7 +128,7 @@ namespace ngk3_weather_api
 
             app.UseRouting();
 
-            //app.UseAuthentication();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
