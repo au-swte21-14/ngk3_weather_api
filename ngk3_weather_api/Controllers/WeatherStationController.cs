@@ -5,8 +5,10 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using ngk3_weather_api.Hubs;
 using ngk3_weather_api.Models;
 using ngk3_weather_api.Types;
 
@@ -22,10 +24,14 @@ namespace ngk3_weather_api.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly AppSettings _appSettings;
+        private readonly IHubContext<NotificationHub> _hub;
 
-        public WeatherStationController(ApplicationDbContext db, IOptions<AppSettings> appSettings)
+        public WeatherStationController(ApplicationDbContext db,
+            IOptions<AppSettings> appSettings,
+            IHubContext<NotificationHub> hub)
         {
             _db = db;
+            _hub = hub;
             _appSettings = appSettings.Value;
         }
 
@@ -68,6 +74,7 @@ namespace ngk3_weather_api.Controllers
             Console.WriteLine(
                 $"{observation.Date} {username}: Temperature={observation.Temperature} Humidity={observation.Humidity} Pressure={observation.Pressure}");
             _db.SaveChanges();
+            _hub.Clients.All.SendAsync("Update", username);
             return Ok();
         }
 

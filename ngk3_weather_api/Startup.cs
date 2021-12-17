@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ngk3_weather_api.Hubs;
 using ngk3_weather_api.Models;
 using ngk3_weather_api.Types;
 
@@ -31,6 +32,7 @@ namespace ngk3_weather_api
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddSignalR();
             services.AddControllers();
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -100,9 +102,6 @@ namespace ngk3_weather_api
                 };
                 c.AddSecurityRequirement(securityRequirements);
             });
-
-            services.AddMvcCore()
-                .AddApiExplorer();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -131,7 +130,11 @@ namespace ngk3_weather_api
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHub<NotificationHub>("/notificationHub");
+            });
         }
     }
 }
