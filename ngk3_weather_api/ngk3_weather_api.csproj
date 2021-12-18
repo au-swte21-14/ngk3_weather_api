@@ -21,4 +21,8 @@
       <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.6.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="ngk3_weather_api_Test" />
+    </ItemGroup>
+
 </Project>
