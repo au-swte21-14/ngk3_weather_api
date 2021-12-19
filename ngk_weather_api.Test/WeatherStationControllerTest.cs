@@ -121,8 +121,8 @@ namespace ngk_weather_api.Test
         {
             var user = new Login {Password = "1234",Username = "UserXD"};
             var result = _weatherStationController.Login(user);
-            Assert.NotNull(result);
-            Assert.AreSame(result.GetType(), typeof(Token));
+            Assert.Null(result?.Value?.Jwt);
+            Assert.AreEqual(typeof(BadRequestResult), result?.Result.GetType());
         }
 
         [Test]
@@ -138,7 +138,7 @@ namespace ngk_weather_api.Test
             };
             _weatherStationController.PostObservation(addResult, "mcd1");
             var dbEntry = _dbContext.WeatherObservations;
-            Assert.AreEqual(4, dbEntry.Count());;
+            Assert.AreEqual(4, dbEntry.Count());
             Assert.AreEqual(dbEntry.Last().Date,addResult.Date);
         }
 
@@ -146,7 +146,7 @@ namespace ngk_weather_api.Test
         public void PostObservation_No_Username()
         {
             var result = _weatherStationController.PostObservation(null);
-            Assert.AreEqual(new BadRequestResult().GetType(), result.GetType());
+            Assert.AreEqual(typeof(BadRequestResult), result.GetType());
         }
 
         [Test]
