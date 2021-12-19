@@ -51,7 +51,6 @@ namespace ngk3_weather_api.Controllers
                     return new Token {Jwt = GenerateToken(login.Username)};
                 }
             }
-
             return BadRequest();
         }
 
@@ -65,6 +64,10 @@ namespace ngk3_weather_api.Controllers
         public ActionResult PostObservation([FromBody] WeatherObservation observation)
         {
             var username = User?.Identity?.Name;
+            return PostObservation(observation, username);
+        }
+        public ActionResult PostObservation([FromBody] WeatherObservation observation, string username)
+        {
             if (observation == null || username == null) return BadRequest();
             var weatherStation = _db.WeatherStations.FirstOrDefault(e => e.Username == username);
             if (weatherStation == null) return BadRequest();
